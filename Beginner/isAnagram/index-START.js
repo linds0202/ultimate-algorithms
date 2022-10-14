@@ -6,10 +6,49 @@ don't. E.g
 */
 
 
+//Direct comparison
 
-function isAnagram(stringA, stringB) {
-    // Code goes here
+//changes to lowercase, replaces non alphabet with '', put in alpha order, rejoin into string
+const sanitizeString(str) {
+    return str.split('').toLowerCase().replace(/[^a-z\d]/g, '').split('').sort().join('')
 }
 
+function isAnagram(stringA, stringB) {
+    return sanitizeString(stringA) === sanitizeString(stringB)
+}
+
+
+//Solve using char map (hash map)
+//returns obj w/letter count
+function createCharMap(text) {
+    let charMap = {}
+
+    for (let char of text) {
+        if(charMap.hasOwnProperty(char)){
+            charMap[char]++
+        } else {
+            charMap[char] = 1
+        }
+    }
+
+    return charMap
+}
+
+function isAnagram(stringA, stringB) {
+    if (stringA.length === stringB.length) {
+        let stringAMap = createCharMap(stringA)
+        let stringBMap = createCharMap(stringB)
+
+        //check char counts against each other
+        for (let char in stringAMap) {
+            if (stringAMap[char] !== stringBMap[char]) {
+                return false
+            }
+        }
+        return true
+    } else {
+        return false
+    }
+}
 
 module.exports = isAnagram
