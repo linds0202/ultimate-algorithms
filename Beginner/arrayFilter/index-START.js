@@ -28,4 +28,4 @@ function arrayFilter(arr, func) {
 
 
 
-module.exports = capSentence
+module.exports = arrayFilter
